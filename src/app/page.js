@@ -6,8 +6,8 @@ export default function ComingSoon() {
   const targetDate = new Date("2026-12-31T00:00:00");
 
   const calculateTimeLeft = () => {
-    const difference = +targetDate - +new Date();
-    let timeLeft: any = {};
+    const difference = targetDate - new Date();
+    let timeLeft = {};
 
     if (difference > 0) {
       timeLeft = {
@@ -33,9 +33,9 @@ export default function ComingSoon() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-700 via-blue-600 to-indigo-700 animate-gradient text-white px-6">
-      
+
       <div className="text-center max-w-2xl animate-fadeIn">
-        
+
         <h1 className="text-5xl md:text-6xl font-bold mb-6">
           🚀 Coming Soon
         </h1>
@@ -44,6 +44,7 @@ export default function ComingSoon() {
           We're building something amazing. Stay tuned for the launch.
         </p>
 
+        {/* Countdown */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {Object.entries(timeLeft).map(([label, value]) => (
             <div
