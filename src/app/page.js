@@ -58,7 +58,7 @@ export default function ComingSoon() {
         </div>
 
         <p className="text-sm text-gray-300 mt-12">
-          © {new Date().getFullYear()} Your Brand
+          © {new Date().getFullYear()} Travel Blisss
         </p>
 
       </div>
