@@ -2,7 +2,7 @@
 export default function Home() {
   return (
     <div className="flex min-h-screen items-center justify-center">
-    <h1>Travel Blisss</h2>
+    <h1>Travel Blisss</h1>
     </div>
   );
 }
