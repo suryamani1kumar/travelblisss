@@ -25,7 +25,9 @@ export default function PackageCard({ package: pkg }) {
         <div className="space-y-2 mb-4 text-sm">
           <div className="flex justify-between">
             <span className="text-gray-600">📍 Destination:</span>
-            <span className="font-semibold text-gray-800">{pkg.destination}</span>
+            <span className="font-semibold text-gray-800">
+              {pkg.destination}
+            </span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-600">⏱️ Duration:</span>
@@ -39,19 +41,6 @@ export default function PackageCard({ package: pkg }) {
             <span className="text-gray-600">🗓️ Season:</span>
             <span className="font-semibold text-gray-800">{pkg.season}</span>
           </div>
-        </div>
-
-        {/* Highlights */}
-        <div className="mb-4">
-          <h4 className="text-sm font-semibold text-gray-800 mb-2">Highlights:</h4>
-          <ul className="text-xs text-gray-600 space-y-1">
-            {pkg.highlights.map((highlight, index) => (
-              <li key={index} className="flex items-start">
-                <span className="mr-2">✓</span>
-                <span>{highlight}</span>
-              </li>
-            ))}
-          </ul>
         </div>
 
         {/* Price and CTA */}
