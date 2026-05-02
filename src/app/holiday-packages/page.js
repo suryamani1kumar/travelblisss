@@ -1,276 +1,482 @@
 "use client";
 
-import PackageCard from "../../components/PackageCard";
-import { useState } from "react";
+import React, { useState, useMemo } from "react";
+import Image from "next/image";
+import { Star, Phone, X, Search, Clock } from "lucide-react";
+import HeroBanner from "@/components/HeroBanner/HeroBanner";
+
+// Reuse the card design but in a list format
+const PackageListCard = ({ pkg }) => {
+  return (
+    <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col md:flex-row gap-6 p-4 mb-6 group">
+      {/* Image Container */}
+      <div className="relative w-full md:w-72 h-56 md:h-auto rounded-xl overflow-hidden flex-shrink-0">
+        <Image
+          src={pkg.image}
+          alt={pkg.name}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-500"
+        />
+        <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full shadow-sm flex items-center gap-1">
+          <Star className="w-3.5 h-3.5 fill-emerald-500 text-emerald-500" />
+          <span className="text-gray-800 font-bold text-xs">{pkg.rating}</span>
+          <span className="text-gray-400 text-[10px]">({pkg.reviews})</span>
+        </div>
+      </div>
+
+      {/* Content Container */}
+      <div className="flex-1 flex flex-col justify-between py-1">
+        <div>
+          <div className="flex justify-between items-start mb-2">
+            <span className="text-orange-600 text-[11px] font-black uppercase tracking-widest">
+              {pkg.theme} • {pkg.country}
+            </span>
+            <span className="text-gray-500 text-xs font-bold flex items-center gap-1">
+              <Clock className="w-3.5 h-3.5" />
+              {pkg.duration}
+            </span>
+          </div>
+
+          <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors">
+            {pkg.name}
+          </h3>
+
+          <div className="flex flex-wrap gap-y-2 gap-x-4 mb-4">
+            {pkg.itinerary &&
+              pkg.itinerary.map((item, idx) => (
+                <div key={idx} className="flex items-center gap-1.5">
+                  <span className="w-5 h-5 rounded-full bg-orange-50 text-orange-600 text-[10px] flex items-center justify-center font-bold">
+                    {item.days}
+                  </span>
+                  <span className="text-gray-600 text-xs font-medium">
+                    {item.place}
+                  </span>
+                  {idx < pkg.itinerary.length - 1 && (
+                    <span className="text-gray-300">→</span>
+                  )}
+                </div>
+              ))}
+            {pkg.extraPlaces > 0 && (
+              <span className="text-orange-600 text-[10px] font-bold self-center">
+                +{pkg.extraPlaces} more
+              </span>
+            )}
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pt-4 border-t border-gray-50">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-gray-400 text-xs line-through">
+                INR {pkg.originalPrice}
+              </span>
+              <span className="bg-emerald-50 text-emerald-600 text-[9px] font-black px-2 py-0.5 rounded uppercase">
+                Save INR {pkg.savings}
+              </span>
+            </div>
+            <div className="flex items-baseline gap-1">
+              <span className="text-2xl font-black text-gray-900">
+                INR {pkg.price.toLocaleString()}
+              </span>
+              <span className="text-gray-500 text-xs font-medium">/Adult</span>
+            </div>
+          </div>
+
+          <div className="flex gap-2 w-full sm:w-auto">
+            <button className="w-12 h-12 flex items-center justify-center border-2 border-orange-100 rounded-xl text-orange-600 hover:bg-orange-50 transition-colors">
+              <Phone className="w-5 h-5 fill-current" />
+            </button>
+            <button className="flex-1 sm:px-8 bg-[#ff7000] hover:bg-[#e66500] text-white font-bold text-sm rounded-xl transition-colors shadow-lg shadow-orange-100">
+              Request Callback
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default function HolidayPackages() {
-  const [filter, setFilter] = useState("all");
+  const [activeFilters, setActiveFilters] = useState({
+    price: 50000,
+    durations: [],
+    countries: [],
+    themes: [],
+    cities: [],
+  });
+
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const packages = [
     {
       id: 1,
-      name: "Paradise Beach Escape",
-      destination: "Maldives",
-      description: "Relax on pristine beaches with crystal clear waters",
-      duration: "7 Days / 6 Nights",
-      groupSize: "2-6 people",
-      season: "Year-round",
-      price: 1299,
-      emoji: "🏝️",
-      image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=500&h=500&fit=crop",
-      highlights: [
-        "Luxury overwater bungalows",
-        "Snorkeling & dive trips",
-        "Sunset catamaran cruise",
-        "Spa treatments included",
+      name: "Manali Kasol Escape | Temples, Valleys & Starlit Nights",
+      country: "India",
+      city: "Manali",
+      theme: "Adventure",
+      duration: "6D & 5N",
+      durationDays: 6,
+      rating: "4.6",
+      reviews: "168",
+      price: 22500,
+      originalPrice: "29,695",
+      savings: "7,195",
+      itinerary: [
+        { days: "1D", place: "Delhi" },
+        { days: "2D", place: "Manali" },
+        { days: "2D", place: "Kasol" },
       ],
-      category: "beach",
+      extraPlaces: 1,
+      image:
+        "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=800&h=600&fit=crop",
     },
     {
       id: 2,
-      name: "Mountain Adventure",
-      destination: "Swiss Alps",
-      description: "Conquer peaks and explore alpine villages",
-      duration: "10 Days / 9 Nights",
-      groupSize: "4-12 people",
-      season: "Summer & Winter",
-      price: 1899,
-      emoji: "⛰️",
-      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=500&fit=crop",
-      highlights: [
-        "Guided hiking tours",
-        "Cable car rides",
-        "Mountain hut stays",
-        "Training included",
+      name: "Mystical Manali With Trip To Solang Valley",
+      country: "India",
+      city: "Manali",
+      theme: "Family",
+      duration: "4D & 3N",
+      durationDays: 4,
+      rating: "5.0",
+      reviews: "48",
+      price: 11625,
+      originalPrice: "17,520",
+      savings: "5,895",
+      itinerary: [
+        { days: "1D", place: "Delhi" },
+        { days: "4D", place: "Manali" },
       ],
-      category: "adventure",
+      extraPlaces: 1,
+      image:
+        "https://images.unsplash.com/photo-1597074866923-dc0589150358?w=800&h=600&fit=crop",
     },
     {
       id: 3,
-      name: "Cultural City Tour",
-      destination: "Italy",
-      description: "Immerse in art, culture, and authentic cuisine",
-      duration: "8 Days / 7 Nights",
-      groupSize: "2-8 people",
-      season: "Spring & Fall",
-      price: 1549,
-      emoji: "🎨",
-      image: "https://images.unsplash.com/photo-1552832860-dac89ebbc641?w=500&h=500&fit=crop",
-      highlights: [
-        "Museum tours with experts",
-        "Cooking classes",
-        "Wine tasting",
-        "Historical site visits",
+      name: "Maldives Luxury Overwater Villa Escape",
+      country: "Maldives",
+      city: "Male",
+      theme: "Honeymoon",
+      duration: "5D & 4N",
+      durationDays: 5,
+      rating: "4.9",
+      reviews: "320",
+      price: 45000,
+      originalPrice: "55,000",
+      savings: "10,000",
+      itinerary: [
+        { days: "1D", place: "Male" },
+        { days: "4D", place: "Resort" },
       ],
-      category: "culture",
+      extraPlaces: 0,
+      image:
+        "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800&h=600&fit=crop",
     },
     {
       id: 4,
-      name: "Safari Wildlife Experience",
-      destination: "Kenya",
-      description: "Witness the Great Migration and wildlife in their natural habitat",
-      duration: "9 Days / 8 Nights",
-      groupSize: "4-10 people",
-      season: "June-October",
-      price: 1799,
-      emoji: "🦁",
-      image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=500&h=500&fit=crop",
-      highlights: [
-        "Game drives with experts",
-        "Big Five sightings",
-        "Luxury tented camps",
-        "Photography tours",
+      name: "Swiss Alps Adventure: Jungfraujoch & Mt. Titlis",
+      country: "Switzerland",
+      city: "Lucerne",
+      theme: "Adventure",
+      duration: "7D & 6N",
+      durationDays: 7,
+      rating: "4.8",
+      reviews: "95",
+      price: 38900,
+      originalPrice: "48,000",
+      savings: "9,100",
+      itinerary: [
+        { days: "2D", place: "Zurich" },
+        { days: "3D", place: "Lucerne" },
+        { days: "2D", place: "Interlaken" },
       ],
-      category: "adventure",
+      extraPlaces: 2,
+      image:
+        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
     },
     {
       id: 5,
-      name: "Tropical Jungle Trek",
-      destination: "Costa Rica",
-      description: "Explore lush rainforests and discover exotic wildlife",
-      duration: "6 Days / 5 Nights",
-      groupSize: "2-8 people",
-      season: "December-April",
-      price: 999,
-      emoji: "🌴",
-      image: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=500&h=500&fit=crop",
-      highlights: [
-        "Zip-lining through canopy",
-        "Waterfall hikes",
-        "Wildlife spotting tours",
-        "Local village visit",
+      name: "Dubai Skyline & Desert Safari Highlights",
+      country: "UAE",
+      city: "Dubai",
+      theme: "Solo",
+      duration: "5D & 4N",
+      durationDays: 5,
+      rating: "4.7",
+      reviews: "1.2K",
+      price: 29999,
+      originalPrice: "38,500",
+      savings: "8,501",
+      itinerary: [
+        { days: "2D", place: "Downtown" },
+        { days: "1D", place: "Desert" },
+        { days: "2D", place: "Marina" },
       ],
-      category: "adventure",
-    },
-    {
-      id: 6,
-      name: "Northern Lights Quest",
-      destination: "Iceland",
-      description: "Chase the magical Aurora Borealis in winter wonderland",
-      duration: "5 Days / 4 Nights",
-      groupSize: "2-6 people",
-      season: "September-March",
-      price: 1399,
-      emoji: "🌌",
-      image: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=500&h=500&fit=crop",
-      highlights: [
-        "Aurora photography",
-        "Geothermal hot springs",
-        "Ice cave exploration",
-        "Local guide included",
-      ],
-      category: "adventure",
-    },
-    {
-      id: 7,
-      name: "Tropical Island Paradise",
-      destination: "Bali",
-      description: "Experience temple culture and pristine beaches",
-      duration: "7 Days / 6 Nights",
-      groupSize: "2-8 people",
-      season: "Year-round",
-      price: 899,
-      emoji: "🛕",
-      image: "https://images.unsplash.com/photo-1505228395891-9a51e7e86e81?w=500&h=500&fit=crop",
-      highlights: [
-        "Temple tours",
-        "Beach club experiences",
-        "Traditional massage",
-        "Surfing lessons",
-      ],
-      category: "beach",
-    },
-    {
-      id: 8,
-      name: "Luxury Cruise Adventure",
-      destination: "Mediterranean",
-      description: "Sail through Europe's most beautiful coastlines",
-      duration: "12 Days / 11 Nights",
-      groupSize: "2-unlimited",
-      season: "May-September",
-      price: 2499,
-      emoji: "🚢",
-      image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=500&h=500&fit=crop",
-      highlights: [
-        "5-star cruise ship",
-        "Port-of-call tours",
-        "Fine dining",
-        "Entertainment shows",
-      ],
-      category: "beach",
+      extraPlaces: 3,
+      image:
+        "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&h=600&fit=crop",
     },
   ];
 
-  const filteredPackages =
-    filter === "all" ? packages : packages.filter((pkg) => pkg.category === filter);
+  const filterOptions = {
+    durations: ["1-3 Days", "4-6 Days", "7+ Days"],
+    countries: ["India", "Maldives", "Switzerland", "UAE", "Thailand"],
+    themes: ["Adventure", "Honeymoon", "Family", "Solo", "Culture"],
+    cities: ["Manali", "Male", "Lucerne", "Dubai", "Bangkok"],
+  };
+
+  const handleFilterChange = (type, value) => {
+    setActiveFilters((prev) => {
+      const current = prev[type];
+      if (type === "price") return { ...prev, price: value };
+      const next = current.includes(value)
+        ? current.filter((i) => i !== value)
+        : [...current, value];
+      return { ...prev, [type]: next };
+    });
+  };
+
+  const filteredPackages = useMemo(() => {
+    return packages.filter((pkg) => {
+      const matchesPrice = pkg.price <= activeFilters.price;
+      const matchesCountry =
+        activeFilters.countries.length === 0 ||
+        activeFilters.countries.includes(pkg.country);
+      const matchesTheme =
+        activeFilters.themes.length === 0 ||
+        activeFilters.themes.includes(pkg.theme);
+      const matchesCity =
+        activeFilters.cities.length === 0 ||
+        activeFilters.cities.includes(pkg.city);
+
+      let matchesDuration = true;
+      if (activeFilters.durations.length > 0) {
+        matchesDuration = activeFilters.durations.some((d) => {
+          if (d === "1-3 Days")
+            return pkg.durationDays >= 1 && pkg.durationDays <= 3;
+          if (d === "4-6 Days")
+            return pkg.durationDays >= 4 && pkg.durationDays <= 6;
+          if (d === "7+ Days") return pkg.durationDays >= 7;
+          return false;
+        });
+      }
+
+      return (
+        matchesPrice &&
+        matchesCountry &&
+        matchesTheme &&
+        matchesCity &&
+        matchesDuration
+      );
+    });
+  }, [activeFilters]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <div 
-        className="relative px-6 text-white bg-cover bg-center flex items-center justify-center"
-        style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1200&h=400&fit=crop')",
-          minHeight: '50vh',
-        }}
-      >
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/50"></div>
-        
-        <div className="relative max-w-7xl mx-auto text-center z-10">
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">
-            Holiday Packages
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-100 mb-8">
-            Discover unforgettable destinations and create lasting memories
-          </p>
+    <div className="min-h-screen bg-[#f8fafc]">
+      {/* ── Hero Section ── */}
+      <HeroBanner />
+
+      <div className="max-w-7xl mx-auto px-6 py-10">
+        <div className="flex gap-8">
+          {/* ── Sidebar Filters (Desktop) ── */}
+          <aside className="hidden md:block w-72 flex-shrink-0">
+            <div className="sticky top-28 bg-white border border-gray-200 rounded-3xl p-6 shadow-sm space-y-8">
+              {/* Price Filter */}
+              <div>
+                <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest mb-4">
+                  Price Range
+                </h4>
+                <input
+                  type="range"
+                  min="5000"
+                  max="100000"
+                  step="5000"
+                  value={activeFilters.price}
+                  onChange={(e) => handleFilterChange("price", e.target.value)}
+                  className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-orange-600"
+                />
+                <div className="flex justify-between mt-2 text-xs font-bold text-gray-500">
+                  <span>₹5,000</span>
+                  <span className="text-orange-600">
+                    Up to ₹{activeFilters.price.toLocaleString()}
+                  </span>
+                </div>
+              </div>
+
+              {/* Filter Sections */}
+              {[
+                { title: "Durations", key: "durations" },
+                { title: "Country", key: "countries" },
+                { title: "Cities", key: "cities" },
+                { title: "Themes", key: "themes" },
+              ].map((section) => (
+                <div
+                  key={section.key}
+                  className="border-t border-gray-100 pt-6"
+                >
+                  <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest mb-4">
+                    {section.title}
+                  </h4>
+                  <div className="space-y-3">
+                    {filterOptions[section.key].map((option) => (
+                      <label
+                        key={option}
+                        className="flex items-center group cursor-pointer"
+                      >
+                        <div className="relative flex items-center">
+                          <input
+                            type="checkbox"
+                            checked={activeFilters[section.key].includes(
+                              option,
+                            )}
+                            onChange={() =>
+                              handleFilterChange(section.key, option)
+                            }
+                            className="peer appearance-none w-5 h-5 border-2 border-gray-200 rounded-md checked:bg-orange-600 checked:border-orange-600 transition-all"
+                          />
+                          <X className="absolute w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 left-0.5 pointer-events-none" />
+                        </div>
+                        <span className="ml-3 text-sm font-bold text-gray-600 group-hover:text-orange-600 transition-colors">
+                          {option}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </aside>
+
+          {/* ── Main Content Area (Right) ── */}
+          <main className="flex-1">
+            {filteredPackages.length > 0 ? (
+              <div className="flex flex-col">
+                {filteredPackages.map((pkg) => (
+                  <PackageListCard key={pkg.id} pkg={pkg} />
+                ))}
+              </div>
+            ) : (
+              <div className="bg-white rounded-3xl p-12 text-center shadow-sm border border-gray-100">
+                <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Search className="w-10 h-10 text-gray-300" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  No packages found
+                </h3>
+                <p className="text-gray-500 mb-8">
+                  Try adjusting your filters to find the perfect holiday.
+                </p>
+                <button
+                  onClick={() =>
+                    setActiveFilters({
+                      price: 100000,
+                      durations: [],
+                      countries: [],
+                      themes: [],
+                      cities: [],
+                    })
+                  }
+                  className="text-orange-600 font-bold hover:underline"
+                >
+                  Clear all filters
+                </button>
+              </div>
+            )}
+          </main>
         </div>
       </div>
 
-      {/* Filter Section */}
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="flex flex-wrap gap-4 justify-center mb-12">
-          <button
-            onClick={() => setFilter("all")}
-            className={`px-6 py-2 rounded-full font-semibold transition-colors duration-200 ${
-              filter === "all"
-                ? "bg-indigo-600 text-white"
-                : "bg-white text-gray-800 border-2 border-gray-200 hover:border-indigo-600"
-            }`}
-          >
-            All Packages
-          </button>
-          <button
-            onClick={() => setFilter("beach")}
-            className={`px-6 py-2 rounded-full font-semibold transition-colors duration-200 ${
-              filter === "beach"
-                ? "bg-indigo-600 text-white"
-                : "bg-white text-gray-800 border-2 border-gray-200 hover:border-indigo-600"
-            }`}
-          >
-            Beach
-          </button>
-          <button
-            onClick={() => setFilter("adventure")}
-            className={`px-6 py-2 rounded-full font-semibold transition-colors duration-200 ${
-              filter === "adventure"
-                ? "bg-indigo-600 text-white"
-                : "bg-white text-gray-800 border-2 border-gray-200 hover:border-indigo-600"
-            }`}
-          >
-            Adventure
-          </button>
-          <button
-            onClick={() => setFilter("culture")}
-            className={`px-6 py-2 rounded-full font-semibold transition-colors duration-200 ${
-              filter === "culture"
-                ? "bg-indigo-600 text-white"
-                : "bg-white text-gray-800 border-2 border-gray-200 hover:border-indigo-600"
-            }`}
-          >
-            Culture
-          </button>
-        </div>
-
-        {/* Packages Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {filteredPackages.map((pkg) => (
-            <PackageCard key={pkg.id} package={pkg} />
-          ))}
-        </div>
-
-        {/* No results */}
-        {filteredPackages.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-600 text-xl">
-              No packages found for the selected category.
-            </p>
+      {/* ── Mobile Filter Drawer ── */}
+      {isFilterOpen && (
+        <div className="fixed inset-0 z-[100] flex">
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={() => setIsFilterOpen(false)}
+          />
+          <div className="relative w-80 bg-white h-full overflow-y-auto p-6 shadow-2xl">
+            <div className="flex items-center justify-between mb-8">
+              <h3 className="text-xl font-black text-gray-900">Filters</h3>
+              <button
+                onClick={() => setIsFilterOpen(false)}
+                className="p-2 bg-gray-100 rounded-full"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            {/* ... same filter content as desktop ... */}
+            <div className="space-y-8">
+              {/* Just copy the same logic but for mobile */}
+              {/* [Price, Durations, Countries, etc.] */}
+              <div>
+                <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest mb-4">
+                  Price Range
+                </h4>
+                <input
+                  type="range"
+                  min="5000"
+                  max="100000"
+                  step="5000"
+                  value={activeFilters.price}
+                  onChange={(e) => handleFilterChange("price", e.target.value)}
+                  className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-orange-600"
+                />
+                <div className="flex justify-between mt-2 text-xs font-bold text-gray-500">
+                  <span>₹5,000</span>
+                  <span className="text-orange-600">
+                    Up to ₹{activeFilters.price.toLocaleString()}
+                  </span>
+                </div>
+              </div>
+              {[
+                { title: "Durations", key: "durations" },
+                { title: "Country", key: "countries" },
+                { title: "Cities", key: "cities" },
+                { title: "Themes", key: "themes" },
+              ].map((section) => (
+                <div
+                  key={section.key}
+                  className="border-t border-gray-100 pt-6"
+                >
+                  <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest mb-4">
+                    {section.title}
+                  </h4>
+                  <div className="space-y-3">
+                    {filterOptions[section.key].map((option) => (
+                      <label
+                        key={option}
+                        className="flex items-center group cursor-pointer"
+                      >
+                        <div className="relative flex items-center">
+                          <input
+                            type="checkbox"
+                            checked={activeFilters[section.key].includes(
+                              option,
+                            )}
+                            onChange={() =>
+                              handleFilterChange(section.key, option)
+                            }
+                            className="peer appearance-none w-5 h-5 border-2 border-gray-200 rounded-md checked:bg-orange-600 checked:border-orange-600 transition-all"
+                          />
+                          <X className="absolute w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 left-0.5 pointer-events-none" />
+                        </div>
+                        <span className="ml-3 text-sm font-bold text-gray-600 group-hover:text-orange-600 transition-colors">
+                          {option}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <button
+              onClick={() => setIsFilterOpen(false)}
+              className="w-full mt-10 py-3 bg-orange-600 text-white font-bold rounded-xl shadow-lg shadow-orange-100"
+            >
+              Show Results
+            </button>
           </div>
-        )}
-      </div>
-
-      {/* CTA Section */}
-      <div 
-        className="relative py-16 px-6 text-white bg-cover bg-center"
-        style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1200&h=400&fit=crop')",
-        }}
-      >
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/50"></div>
-        
-        <div className="relative max-w-2xl mx-auto text-center z-10">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Can't find your dream destination?
-          </h2>
-          <p className="text-lg text-gray-100 mb-8">
-            We offer customized holiday packages tailored to your preferences
-          </p>
-          <button className="bg-white text-indigo-600 hover:bg-gray-100 font-bold px-8 py-3 rounded-lg transition-colors duration-200">
-            Create Custom Package
-          </button>
         </div>
-      </div>
+      )}
     </div>
   );
 }
