@@ -2,13 +2,30 @@
 
 import React, { useState, useMemo } from "react";
 import Image from "next/image";
-import { Star, Phone, X, Search, Clock } from "lucide-react";
+import {
+  Star,
+  Phone,
+  X,
+  Search,
+  Clock,
+  Hotel,
+  Utensils,
+  Compass,
+  Car,
+} from "lucide-react";
 import HeroBanner from "@/components/HeroBanner/HeroBanner";
 
 // Reuse the card design but in a list format
 const PackageListCard = ({ pkg }) => {
+  const inclusions = [
+    { icon: Hotel, label: "Hotels" },
+    { icon: Utensils, label: "Meals" },
+    { icon: Compass, label: "Activity" },
+    { icon: Car, label: "Transfer" },
+  ];
+
   return (
-    <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col md:flex-row gap-6 p-4 mb-6 group">
+    <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 flex flex-col md:flex-row gap-6 p-4 mb-6 group">
       {/* Image Container */}
       <div className="relative w-full md:w-72 h-56 md:h-auto rounded-xl overflow-hidden flex-shrink-0">
         <Image
@@ -19,7 +36,9 @@ const PackageListCard = ({ pkg }) => {
         />
         <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full shadow-sm flex items-center gap-1">
           <Star className="w-3.5 h-3.5 fill-emerald-500 text-emerald-500" />
-          <span className="text-gray-800 font-semibold text-xs font-outfit">{pkg.rating}</span>
+          <span className="text-gray-800 font-semibold text-xs font-outfit">
+            {pkg.rating}
+          </span>
           <span className="text-gray-400 text-[10px]">({pkg.reviews})</span>
         </div>
       </div>
@@ -27,8 +46,8 @@ const PackageListCard = ({ pkg }) => {
       {/* Content Container */}
       <div className="flex-1 flex flex-col justify-between py-1">
         <div>
-          <div className="flex justify-between items-start mb-2">
-            <span className="text-orange-600 text-[11px] font-semibold uppercase tracking-widest">
+          <div className="flex justify-between items-start mb-1">
+            <span className="text-[11px] tracking-widest text-gray-500 font-medium">
               {pkg.theme} • {pkg.country}
             </span>
             <span className="text-gray-500 text-xs font-semibold flex items-center gap-1">
@@ -37,30 +56,42 @@ const PackageListCard = ({ pkg }) => {
             </span>
           </div>
 
-          <h3 className="text-lg font-semibold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors font-outfit">
+          <h3 className="text-lg font-semibold text-gray-900 mb-2 font-outfit">
             {pkg.name}
           </h3>
 
-          <div className="flex flex-wrap gap-y-2 gap-x-4 mb-4">
+          {/* Itinerary Text */}
+          <div className="flex flex-wrap items-center gap-y-1 gap-x-2 mb-2">
             {pkg.itinerary &&
               pkg.itinerary.map((item, idx) => (
-                <div key={idx} className="flex items-center gap-1.5">
-                  <span className="w-5 h-5 rounded-full bg-orange-50 text-orange-600 text-[10px] flex items-center justify-center font-semibold">
-                    {item.days}
-                  </span>
-                  <span className="text-gray-600 text-xs font-medium">
-                    {item.place}
-                  </span>
+                <React.Fragment key={idx}>
+                  <div className="flex items-center gap-1">
+                    <span className="text-gray-900 font-bold text-xs">
+                      {item.days}
+                    </span>
+                    <span className="text-gray-600 text-xs font-medium">
+                      {item.place}
+                    </span>
+                  </div>
                   {idx < pkg.itinerary.length - 1 && (
-                    <span className="text-gray-300">→</span>
+                    <span className="text-gray-300 text-xs">→</span>
                   )}
-                </div>
+                </React.Fragment>
               ))}
-            {pkg.extraPlaces > 0 && (
-              <span className="text-orange-600 text-[10px] font-semibold self-center">
-                +{pkg.extraPlaces} more
-              </span>
-            )}
+          </div>
+
+          {/* Inclusions Icons */}
+          <div className="flex gap-4">
+            {inclusions.map((item, idx) => (
+              <div key={idx} className="flex flex-col items-center gap-1">
+                <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-500 border border-gray-100">
+                  <item.icon className="w-3.5 h-3.5" />
+                </div>
+                <span className="text-[9px] font-medium text-gray-400 uppercase tracking-tighter">
+                  {item.label}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -83,10 +114,10 @@ const PackageListCard = ({ pkg }) => {
           </div>
 
           <div className="flex gap-2 w-full sm:w-auto">
-            <button className="w-12 h-12 flex items-center justify-center border-2 border-orange-100 rounded-xl text-orange-600 hover:bg-orange-50 transition-colors">
+            <button className="w-10 h-10 flex items-center justify-center border-2 border-orange-100 rounded-xl text-orange-600 hover:bg-orange-50 transition-colors">
               <Phone className="w-5 h-5 fill-current" />
             </button>
-            <button className="flex-1 sm:px-8 bg-orange-600 hover:bg-orange-700 text-white font-semibold text-sm rounded-xl transition-colors shadow-lg shadow-orange-100 font-outfit">
+            <button className="flex-1 sm:px-6 bg-orange-600 hover:bg-orange-700 text-white font-semibold text-sm rounded-xl transition-colors shadow-lg shadow-orange-100 font-outfit">
               Request Callback
             </button>
           </div>
@@ -168,6 +199,7 @@ export default function HolidayPackages() {
         { days: "1D", place: "Male" },
         { days: "4D", place: "Resort" },
       ],
+
       extraPlaces: 0,
       image:
         "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800&h=600&fit=crop",
