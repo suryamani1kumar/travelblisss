@@ -47,16 +47,13 @@ const HeroBanner = () => {
       <div className="relative max-w-7xl mx-auto px-6 py-2 flex flex-col lg:flex-row items-center gap-8">
         {/* ── LEFT: Text Content ── */}
         <div className="flex-1 text-white">
-          <h1 className="text-3xl md:text-4xl font-bold leading-tight mb-3">
-            Contrary to popular belief, Lorem Ipsum is not simply random text.
+          <h1 className="text-3xl md:text-4xl font-semibold leading-tight mb-6 font-outfit tracking-tight">
+            Discover Your Next <br />
+            <span className="text-orange-400">Dream Destination</span>
           </h1>
 
-          <p className="text-gray-300 text-sm leading-relaxed max-w-xl">
-            making it over 2000 years old. Richard McClintock, a Latin professor
-            at Hampden-Sydney College in Virginia, looked up one of the more
-            obscure Latin words, consectetur, from a Lorem Ipsum passage, and
-            going through the cites of the word in classical literature,
-            discovered the undoubtable source.
+          <p className="text-gray-200 text-lg leading-relaxed max-w-xl mb-8">
+            Experience the world like never before with our curated travel packages. From serene mountains to vibrant cityscapes, we bring you the best of travel bliss.
           </p>
         </div>
 

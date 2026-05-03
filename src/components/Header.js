@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { PhoneCall } from "lucide-react";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,34 +12,41 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <span className="text-xl font-bold text-gray-800">Travel Blisss</span>
+          <span className="text-xl font-semibold text-gray-800 font-outfit tracking-tight">Travel Blisss</span>
         </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
           <Link
             href="/"
-            className="text-gray-800 hover:text-indigo-600 font-medium transition-colors"
+            className="text-gray-800 hover:text-orange-500 font-medium transition-colors"
           >
             Home
           </Link>
 
           <Link
-            href="#about"
-            className="text-gray-800 hover:text-indigo-600 font-medium transition-colors"
+            href="/about"
+            className="text-gray-800 hover:text-orange-500 font-medium transition-colors"
           >
             About
           </Link>
           <Link
-            href="#contact"
-            className="text-gray-800 hover:text-indigo-600 font-medium transition-colors"
+            href="/contact"
+            className="text-gray-800 hover:text-orange-500 font-medium transition-colors"
           >
             Contact
           </Link>
-          <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
-            Book Now
-          </button>
         </nav>
+
+        <div className="hidden md:flex items-center gap-4">
+          <Link
+            href="tel:+18446354010"
+            className={`bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded-xl transition-all flex items-center gap-3 shadow-lg`}
+          >
+            <PhoneCall className="w-5 h-5" />
+            <span>Call at +1-844-635-4010</span>
+          </Link>
+        </div>
 
         {/* Mobile Menu Button */}
         <button
@@ -82,22 +90,19 @@ export default function Header() {
               Packages
             </Link>
             <Link
-              href="#about"
+              href="/about"
               onClick={() => setIsMenuOpen(false)}
               className="block text-gray-800 hover:text-indigo-600 font-medium transition-colors"
             >
               About
             </Link>
             <Link
-              href="#contact"
+              href="/contact"
               onClick={() => setIsMenuOpen(false)}
               className="block text-gray-800 hover:text-indigo-600 font-medium transition-colors"
             >
               Contact
             </Link>
-            <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
-              Book Now
-            </button>
           </div>
         </nav>
       )}

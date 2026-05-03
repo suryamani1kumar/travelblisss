@@ -19,7 +19,7 @@ const PackageListCard = ({ pkg }) => {
         />
         <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full shadow-sm flex items-center gap-1">
           <Star className="w-3.5 h-3.5 fill-emerald-500 text-emerald-500" />
-          <span className="text-gray-800 font-bold text-xs">{pkg.rating}</span>
+          <span className="text-gray-800 font-semibold text-xs font-outfit">{pkg.rating}</span>
           <span className="text-gray-400 text-[10px]">({pkg.reviews})</span>
         </div>
       </div>
@@ -28,16 +28,16 @@ const PackageListCard = ({ pkg }) => {
       <div className="flex-1 flex flex-col justify-between py-1">
         <div>
           <div className="flex justify-between items-start mb-2">
-            <span className="text-orange-600 text-[11px] font-black uppercase tracking-widest">
+            <span className="text-orange-600 text-[11px] font-semibold uppercase tracking-widest">
               {pkg.theme} • {pkg.country}
             </span>
-            <span className="text-gray-500 text-xs font-bold flex items-center gap-1">
+            <span className="text-gray-500 text-xs font-semibold flex items-center gap-1">
               <Clock className="w-3.5 h-3.5" />
               {pkg.duration}
             </span>
           </div>
 
-          <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors">
+          <h3 className="text-lg font-semibold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors font-outfit">
             {pkg.name}
           </h3>
 
@@ -45,7 +45,7 @@ const PackageListCard = ({ pkg }) => {
             {pkg.itinerary &&
               pkg.itinerary.map((item, idx) => (
                 <div key={idx} className="flex items-center gap-1.5">
-                  <span className="w-5 h-5 rounded-full bg-orange-50 text-orange-600 text-[10px] flex items-center justify-center font-bold">
+                  <span className="w-5 h-5 rounded-full bg-orange-50 text-orange-600 text-[10px] flex items-center justify-center font-semibold">
                     {item.days}
                   </span>
                   <span className="text-gray-600 text-xs font-medium">
@@ -57,7 +57,7 @@ const PackageListCard = ({ pkg }) => {
                 </div>
               ))}
             {pkg.extraPlaces > 0 && (
-              <span className="text-orange-600 text-[10px] font-bold self-center">
+              <span className="text-orange-600 text-[10px] font-semibold self-center">
                 +{pkg.extraPlaces} more
               </span>
             )}
@@ -70,12 +70,12 @@ const PackageListCard = ({ pkg }) => {
               <span className="text-gray-400 text-xs line-through">
                 INR {pkg.originalPrice}
               </span>
-              <span className="bg-emerald-50 text-emerald-600 text-[9px] font-black px-2 py-0.5 rounded uppercase">
+              <span className="bg-emerald-50 text-emerald-600 text-[9px] font-semibold px-2 py-0.5 rounded uppercase">
                 Save INR {pkg.savings}
               </span>
             </div>
             <div className="flex items-baseline gap-1">
-              <span className="text-2xl font-black text-gray-900">
+              <span className="text-2xl font-semibold text-gray-900 font-outfit">
                 INR {pkg.price.toLocaleString()}
               </span>
               <span className="text-gray-500 text-xs font-medium">/Adult</span>
@@ -86,7 +86,7 @@ const PackageListCard = ({ pkg }) => {
             <button className="w-12 h-12 flex items-center justify-center border-2 border-orange-100 rounded-xl text-orange-600 hover:bg-orange-50 transition-colors">
               <Phone className="w-5 h-5 fill-current" />
             </button>
-            <button className="flex-1 sm:px-8 bg-[#ff7000] hover:bg-[#e66500] text-white font-bold text-sm rounded-xl transition-colors shadow-lg shadow-orange-100">
+            <button className="flex-1 sm:px-8 bg-orange-600 hover:bg-orange-700 text-white font-semibold text-sm rounded-xl transition-colors shadow-lg shadow-orange-100 font-outfit">
               Request Callback
             </button>
           </div>
@@ -283,7 +283,7 @@ export default function HolidayPackages() {
             <div className="sticky top-28 bg-white border border-gray-200 rounded-3xl p-6 shadow-sm space-y-8">
               {/* Price Filter */}
               <div>
-                <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest mb-4">
+                <h4 className="text-sm font-semibold text-gray-900 font-outfit mb-4">
                   Price Range
                 </h4>
                 <input
@@ -295,7 +295,7 @@ export default function HolidayPackages() {
                   onChange={(e) => handleFilterChange("price", e.target.value)}
                   className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-orange-600"
                 />
-                <div className="flex justify-between mt-2 text-xs font-bold text-gray-500">
+                <div className="flex justify-between mt-2 text-xs font-semibold text-gray-500">
                   <span>₹5,000</span>
                   <span className="text-orange-600">
                     Up to ₹{activeFilters.price.toLocaleString()}
@@ -314,7 +314,7 @@ export default function HolidayPackages() {
                   key={section.key}
                   className="border-t border-gray-100 pt-6"
                 >
-                  <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest mb-4">
+                  <h4 className="text-sm font-semibold text-gray-900 font-outfit mb-4">
                     {section.title}
                   </h4>
                   <div className="space-y-3">
@@ -336,7 +336,7 @@ export default function HolidayPackages() {
                           />
                           <X className="absolute w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 left-0.5 pointer-events-none" />
                         </div>
-                        <span className="ml-3 text-sm font-bold text-gray-600 group-hover:text-orange-600 transition-colors">
+                        <span className="ml-3 text-sm font-semibold text-gray-600 group-hover:text-orange-600 transition-colors">
                           {option}
                         </span>
                       </label>
@@ -360,7 +360,7 @@ export default function HolidayPackages() {
                 <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Search className="w-10 h-10 text-gray-300" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
                   No packages found
                 </h3>
                 <p className="text-gray-500 mb-8">
@@ -376,7 +376,7 @@ export default function HolidayPackages() {
                       cities: [],
                     })
                   }
-                  className="text-orange-600 font-bold hover:underline"
+                  className="text-orange-600 font-semibold hover:underline"
                 >
                   Clear all filters
                 </button>
@@ -395,7 +395,7 @@ export default function HolidayPackages() {
           />
           <div className="relative w-80 bg-white h-full overflow-y-auto p-6 shadow-2xl">
             <div className="flex items-center justify-between mb-8">
-              <h3 className="text-xl font-black text-gray-900">Filters</h3>
+              <h3 className="text-xl font-semibold text-gray-900">Filters</h3>
               <button
                 onClick={() => setIsFilterOpen(false)}
                 className="p-2 bg-gray-100 rounded-full"
@@ -408,7 +408,7 @@ export default function HolidayPackages() {
               {/* Just copy the same logic but for mobile */}
               {/* [Price, Durations, Countries, etc.] */}
               <div>
-                <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest mb-4">
+                <h4 className="text-sm font-semibold text-gray-900 font-outfit mb-4">
                   Price Range
                 </h4>
                 <input
@@ -420,7 +420,7 @@ export default function HolidayPackages() {
                   onChange={(e) => handleFilterChange("price", e.target.value)}
                   className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-orange-600"
                 />
-                <div className="flex justify-between mt-2 text-xs font-bold text-gray-500">
+                <div className="flex justify-between mt-2 text-xs font-semibold text-gray-500">
                   <span>₹5,000</span>
                   <span className="text-orange-600">
                     Up to ₹{activeFilters.price.toLocaleString()}
@@ -437,7 +437,7 @@ export default function HolidayPackages() {
                   key={section.key}
                   className="border-t border-gray-100 pt-6"
                 >
-                  <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest mb-4">
+                  <h4 className="text-sm font-semibold text-gray-900 font-outfit mb-4">
                     {section.title}
                   </h4>
                   <div className="space-y-3">
@@ -459,7 +459,7 @@ export default function HolidayPackages() {
                           />
                           <X className="absolute w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 left-0.5 pointer-events-none" />
                         </div>
-                        <span className="ml-3 text-sm font-bold text-gray-600 group-hover:text-orange-600 transition-colors">
+                        <span className="ml-3 text-sm font-semibold text-gray-600 group-hover:text-orange-600 transition-colors">
                           {option}
                         </span>
                       </label>
@@ -470,7 +470,7 @@ export default function HolidayPackages() {
             </div>
             <button
               onClick={() => setIsFilterOpen(false)}
-              className="w-full mt-10 py-3 bg-orange-600 text-white font-bold rounded-xl shadow-lg shadow-orange-100"
+              className="w-full mt-10 py-3 bg-orange-600 text-white font-semibold rounded-xl shadow-lg shadow-orange-100"
             >
               Show Results
             </button>

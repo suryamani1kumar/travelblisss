@@ -47,7 +47,7 @@ export default function PackageCard({ package: pkg }) {
         </div>
 
         {/* Title */}
-        <h3 className="text-[16px] font-bold text-gray-900 leading-tight mb-3 line-clamp-2 min-h-[2.5rem]">
+        <h3 className="text-base font-semibold text-gray-900 leading-tight mb-3 line-clamp-2 min-h-[2.5rem] font-outfit">
           {pkg.name}
         </h3>
 
@@ -79,7 +79,7 @@ export default function PackageCard({ package: pkg }) {
             </span>
           </div>
           <div className="flex items-baseline gap-1">
-            <span className="text-xl font-black text-gray-900">
+            <span className="text-xl font-semibold text-gray-900 font-outfit">
               INR {pkg.price.toLocaleString()}
             </span>
             <span className="text-gray-500 text-[12px]">/Adult</span>

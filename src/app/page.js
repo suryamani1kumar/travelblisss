@@ -2,9 +2,13 @@
 
 import HeroBanner from "@/components/HeroBanner/HeroBanner";
 import PackageCard from "../components/PackageCard";
+import WhyChooseUs from "../components/whychooseus/WhyChooseUs";
+import CallBanner from "../components/CallBanner";
+import FAQ from "../components/FAQ";
 import Link from "next/link";
 import { useState } from "react";
 import { ChevronRight, ChevronLeft } from "lucide-react";
+import PacakagesTheme from "@/components/pacakgestheme/PacakagesTheme";
 
 export default function Home() {
   // Featured packages
@@ -178,48 +182,6 @@ export default function Home() {
   const [cityStart, setCityStart] = useState(0);
   const visibleCities = indianCities.slice(cityStart, cityStart + 5);
 
-  // Theme categories data
-  const themeCategories = [
-    {
-      name: "Family",
-      tours: 43,
-      image:
-        "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=200&h=200&fit=crop",
-    },
-    {
-      name: "Honeymoon",
-      tours: 33,
-      image:
-        "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=200&h=200&fit=crop",
-    },
-    {
-      name: "Nature",
-      tours: 9,
-      image:
-        "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=200&h=200&fit=crop",
-    },
-    {
-      name: "Solo",
-      tours: 32,
-      image:
-        "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=200&h=200&fit=crop",
-    },
-
-    {
-      name: "Adventure",
-      tours: 18,
-      image:
-        "https://images.unsplash.com/photo-1533240332313-0db49b459ad6?w=200&h=200&fit=crop",
-    },
-    {
-      name: "Wellness",
-      tours: 7,
-      image:
-        "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=200&h=200&fit=crop",
-    },
-  ];
-  const [themeStart, setThemeStart] = useState(0);
-  const visibleThemes = themeCategories.slice(themeStart, themeStart + 5);
   const [pkgStart, setPkgStart] = useState(0);
 
   return (
@@ -228,12 +190,12 @@ export default function Home() {
       <HeroBanner />
 
       {/* ── Top Indian Cities Section ── */}
-      <section className="bg-white pt-15 px-6">
+      <section className="bg-white pt-15 pb-10 px-6">
         <div className="max-w-7xl mx-auto">
           {/* Header row */}
           <div className="flex items-end justify-between mb-8">
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">
+              <h2 className="text-2xl font-semibold text-gray-900 mb-2 font-outfit">
                 Top Indian Cities | Best Selling Vacation Deals
               </h2>
               <div className="flex items-center gap-2">
@@ -286,18 +248,18 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
 
                 {/* Badge */}
-                <span className="absolute top-2 left-2 bg-orange-600 text-white text-[10px] font-black px-2 py-1.5 rounded-lg z-10">
+                <span className="absolute top-2 left-2 bg-orange-600 text-white text-[10px] font-semibold px-2 py-1.5 rounded-lg z-10">
                   {city.tours} Packages
                 </span>
 
                 {/* Info Box (Floating at bottom) */}
                 <div className="absolute bottom-2 left-2 right-2 bg-white rounded-2xl py-4 px-2 text-center shadow-2xl transform group-hover:-translate-y-1 transition-transform duration-300">
-                  <p className="font-black text-gray-700 text-md leading-tight mb-1">
+                  <p className="font-semibold text-gray-700 text-md leading-tight mb-1 font-outfit">
                     {city.name}
                   </p>
                   <p className="text-[13px] text-gray-500">
                     Starting From @{" "}
-                    <strong className="text-[16px] font-bolder text-orange-600 ml-1">
+                    <strong className="text-[16px] font-semibold text-orange-600 ml-1">
                       ₹{city.price}
                     </strong>
                   </p>
@@ -308,87 +270,26 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Call to Action Banner */}
+      <CallBanner />
+
       {/* ── Explore Tour Packages by Theme ── */}
-      <section className="relative pt-15 px-6 bg-white">
-        <div className="relative max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            Explore Tour Packages by Theme
-          </h2>
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-semibold text-orange-600 uppercase tracking-wider">
-              Theme List
-            </span>
-            <div className="w-12 h-0.5 bg-orange-600 rounded-full" />
-          </div>
-          <div className="relative flex items-center mt-5">
-            {/* Left arrow */}
-            <button
-              onClick={() => setThemeStart(Math.max(0, themeStart - 1))}
-              disabled={themeStart === 0}
-              className="cursor-pointer absolute -left-5 z-20 w-12 h-12 rounded-full bg-orange-600 text-white flex items-center justify-center text-2xl shadow-lg hover:bg-orange-700 disabled:opacity-0 disabled:cursor-not-allowed transition-all duration-300"
-            >
-              <ChevronLeft />
-            </button>
+      <PacakagesTheme />
 
-            {/* Theme cards container */}
-            <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
-              {visibleThemes.map((theme) => (
-                <Link
-                  key={theme.name}
-                  href={`/holiday-packages?theme=${theme.name}`}
-                  className="group relative h-[180px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
-                >
-                  {/* Background Image */}
-                  <img
-                    src={theme.image}
-                    alt={theme.name}
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-
-                  {/* Dark Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-70 group-hover:opacity-80 transition-opacity" />
-
-                  {/* Content Overlay */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-                    <h3 className="text-white font-black text-2xl mb-2 drop-shadow-md tracking-tight">
-                      {theme.name}
-                    </h3>
-                    <div className="w-12 h-1 bg-orange-500 mb-3 rounded-full shadow-lg" />
-                    <p className="text-white/90 text-[10px] font-black uppercase tracking-[0.2em] bg-black/30 backdrop-blur-sm px-4 py-1.5 rounded-full border border-white/10">
-                      {theme.tours} Packages
-                    </p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-
-            {/* Right arrow */}
-            <button
-              onClick={() =>
-                setThemeStart(
-                  Math.min(themeCategories.length - 5, themeStart + 1),
-                )
-              }
-              disabled={themeStart >= themeCategories.length - 5}
-              className="cursor-pointer absolute -right-5 z-20 w-12 h-12 rounded-full bg-orange-600 text-white flex items-center justify-center text-2xl shadow-lg hover:bg-orange-700 disabled:opacity-0 disabled:cursor-not-allowed transition-all duration-300"
-            >
-              <ChevronRight />
-            </button>
-          </div>
-        </div>
-      </section>
+      {/* Why Choose Us Section */}
+      <WhyChooseUs />
 
       {/* Holiday Packages Section */}
-      <section className="max-w-7xl mx-auto px-6 pt-15 pb-15 overflow-hidden bg-white">
+      <section className="max-w-7xl mx-auto px-6  py-10 overflow-hidden bg-white">
         {/* Section Header */}
         <div className="flex items-center justify-between mb-5">
           <div>
-            <h2 className="text-3xl font-black text-gray-900 tracking-tight mb-2">
-              Manali Most Popular Tours
+            <h2 className="text-2xl font-semibold text-gray-900 tracking-tight mb-2 font-outfit">
+              Most Popular Tours
             </h2>
             <div className="flex items-center gap-2">
               <span className="text-sm font-semibold text-orange-600 uppercase tracking-wider">
-                Destinations List
+                Tours List
               </span>
               <div className="w-12 h-0.5 bg-orange-600 rounded-full" />
             </div>
@@ -427,52 +328,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
-      <div className="bg-white py-16 px-6 border-t">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 text-center mb-12">
-            Why Choose Travel Blisss?
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <h3 className="text-xl font-bold text-gray-800 mb-2">
-                Curated Experiences
-              </h3>
-              <p className="text-gray-600">
-                Handpicked destinations and activities tailored for
-                unforgettable moments
-              </p>
-            </div>
-            <div className="text-center">
-              <h3 className="text-xl font-bold text-gray-800 mb-2">
-                Best Value
-              </h3>
-              <p className="text-gray-600">
-                Competitive pricing with all-inclusive packages and hidden gem
-                destinations
-              </p>
-            </div>
-            <div className="text-center">
-              <h3 className="text-xl font-bold text-gray-800 mb-2">
-                Expert Support
-              </h3>
-              <p className="text-gray-600">
-                24/7 customer support and personalized travel planning
-                assistance
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Footer */}
-      <div className="bg-gray-800 text-white py-8 px-6">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-sm text-gray-300">
-            © {new Date().getFullYear()} Travel Blisss. All rights reserved.
-          </p>
-        </div>
-      </div>
+      {/* FAQ Section */}
+      <FAQ />
     </div>
   );
 }
