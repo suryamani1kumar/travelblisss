@@ -29,11 +29,11 @@ export default function CallBanner() {
         {/* Right Side: Button */}
         <div className="flex-shrink-0">
           <a
-            href="tel:+18446354010"
+            href="tel:+918700461925"
             className="bg-white hover:bg-slate-100 text-slate-900 font-semibold py-4 px-8 rounded-xl transition-all flex items-center gap-3 shadow-lg"
           >
             <PhoneCall className="w-5 h-5" />
-            <span>Call at +1-844-635-4010</span>
+            <span>Call at +91 87004 61925</span>
           </a>
         </div>
       </div>

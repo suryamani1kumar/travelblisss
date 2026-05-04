@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   Star,
   Phone,
@@ -12,8 +13,10 @@ import {
   Utensils,
   Compass,
   Car,
+  ChevronRight,
 } from "lucide-react";
 import HeroBanner from "@/components/HeroBanner/HeroBanner";
+import { packages } from "@/data/packages";
 
 // Reuse the card design but in a list format
 const PackageListCard = ({ pkg }) => {
@@ -137,118 +140,6 @@ export default function HolidayPackages() {
   });
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-
-  const packages = [
-    {
-      id: 1,
-      name: "Manali Kasol Escape | Temples, Valleys & Starlit Nights",
-      country: "India",
-      city: "Manali",
-      theme: "Adventure",
-      duration: "6D & 5N",
-      durationDays: 6,
-      rating: "4.6",
-      reviews: "168",
-      price: 22500,
-      originalPrice: "29,695",
-      savings: "7,195",
-      itinerary: [
-        { days: "1D", place: "Delhi" },
-        { days: "2D", place: "Manali" },
-        { days: "2D", place: "Kasol" },
-      ],
-      extraPlaces: 1,
-      image:
-        "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=800&h=600&fit=crop",
-    },
-    {
-      id: 2,
-      name: "Mystical Manali With Trip To Solang Valley",
-      country: "India",
-      city: "Manali",
-      theme: "Family",
-      duration: "4D & 3N",
-      durationDays: 4,
-      rating: "5.0",
-      reviews: "48",
-      price: 11625,
-      originalPrice: "17,520",
-      savings: "5,895",
-      itinerary: [
-        { days: "1D", place: "Delhi" },
-        { days: "4D", place: "Manali" },
-      ],
-      extraPlaces: 1,
-      image:
-        "https://images.unsplash.com/photo-1597074866923-dc0589150358?w=800&h=600&fit=crop",
-    },
-    {
-      id: 3,
-      name: "Maldives Luxury Overwater Villa Escape",
-      country: "Maldives",
-      city: "Male",
-      theme: "Honeymoon",
-      duration: "5D & 4N",
-      durationDays: 5,
-      rating: "4.9",
-      reviews: "320",
-      price: 45000,
-      originalPrice: "55,000",
-      savings: "10,000",
-      itinerary: [
-        { days: "1D", place: "Male" },
-        { days: "4D", place: "Resort" },
-      ],
-
-      extraPlaces: 0,
-      image:
-        "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800&h=600&fit=crop",
-    },
-    {
-      id: 4,
-      name: "Swiss Alps Adventure: Jungfraujoch & Mt. Titlis",
-      country: "Switzerland",
-      city: "Lucerne",
-      theme: "Adventure",
-      duration: "7D & 6N",
-      durationDays: 7,
-      rating: "4.8",
-      reviews: "95",
-      price: 38900,
-      originalPrice: "48,000",
-      savings: "9,100",
-      itinerary: [
-        { days: "2D", place: "Zurich" },
-        { days: "3D", place: "Lucerne" },
-        { days: "2D", place: "Interlaken" },
-      ],
-      extraPlaces: 2,
-      image:
-        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
-    },
-    {
-      id: 5,
-      name: "Dubai Skyline & Desert Safari Highlights",
-      country: "UAE",
-      city: "Dubai",
-      theme: "Solo",
-      duration: "5D & 4N",
-      durationDays: 5,
-      rating: "4.7",
-      reviews: "1.2K",
-      price: 29999,
-      originalPrice: "38,500",
-      savings: "8,501",
-      itinerary: [
-        { days: "2D", place: "Downtown" },
-        { days: "1D", place: "Desert" },
-        { days: "2D", place: "Marina" },
-      ],
-      extraPlaces: 3,
-      image:
-        "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&h=600&fit=crop",
-    },
-  ];
 
   const filterOptions = {
     durations: ["1-3 Days", "4-6 Days", "7+ Days"],
@@ -384,7 +275,9 @@ export default function HolidayPackages() {
             {filteredPackages.length > 0 ? (
               <div className="flex flex-col">
                 {filteredPackages.map((pkg) => (
-                  <PackageListCard key={pkg.id} pkg={pkg} />
+                  <Link key={pkg.id} href={`/holiday-packages/${pkg.id}`} className="block">
+                    <PackageListCard pkg={pkg} />
+                  </Link>
                 ))}
               </div>
             ) : (

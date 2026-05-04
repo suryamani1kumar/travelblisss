@@ -39,15 +39,17 @@ export default function ContactPage() {
                     <Phone className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-slate-900 mb-1">Call Us</h3>
+                    <h3 className="font-semibold text-slate-900 mb-1">
+                      Call Us
+                    </h3>
                     <p className="text-slate-500 mb-1">
                       Mon-Fri from 8am to 6pm.
                     </p>
                     <a
-                      href="tel:+1234567890"
+                      href="tel:+918700461925"
                       className="text-orange-600 font-semibold hover:underline"
                     >
-                      +1 (234) 567-890
+                      +91 87004 61925
                     </a>
                   </div>
                 </div>
@@ -56,15 +58,17 @@ export default function ContactPage() {
                     <Mail className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-slate-900 mb-1">Email Us</h3>
+                    <h3 className="font-semibold text-slate-900 mb-1">
+                      Email Us
+                    </h3>
                     <p className="text-slate-500 mb-1">
                       Our team is here to help.
                     </p>
                     <a
-                      href="mailto:hello@travelblisss.com"
+                      href="mailto:info@travelblisss.com"
                       className="text-orange-600 font-semibold hover:underline"
                     >
-                      hello@travelblisss.com
+                      info@travelblisss.com
                     </a>
                   </div>
                 </div>
@@ -73,7 +77,9 @@ export default function ContactPage() {
                     <MapPin className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-slate-900 mb-1">Visit Us</h3>
+                    <h3 className="font-semibold text-slate-900 mb-1">
+                      Visit Us
+                    </h3>
                     <p className="text-slate-500 mb-1">
                       Come say hello at our office.
                     </p>

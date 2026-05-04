@@ -100,7 +100,9 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-base font-semibold text-white mb-6 font-outfit">Quick Links</h4>
+            <h4 className="text-base font-semibold text-white mb-6 font-outfit">
+              Quick Links
+            </h4>
             <ul className="space-y-4">
               <li>
                 <Link
@@ -126,7 +128,9 @@ export default function Footer() {
 
           {/* Support */}
           <div>
-            <h4 className="text-base font-semibold text-white mb-6 font-outfit">Support</h4>
+            <h4 className="text-base font-semibold text-white mb-6 font-outfit">
+              Support
+            </h4>
             <ul className="space-y-4">
               <li>
                 <Link
@@ -160,7 +164,9 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-base font-semibold text-white mb-6 font-outfit">Contact Us</h4>
+            <h4 className="text-base font-semibold text-white mb-6 font-outfit">
+              Contact Us
+            </h4>
             <ul className="space-y-6">
               <li className="flex items-start gap-4">
                 <div className="p-2 bg-slate-900 rounded-lg text-orange-500">
@@ -180,10 +186,10 @@ export default function Footer() {
                 <div>
                   <p className="text-sm text-slate-400 mb-1">Phone</p>
                   <a
-                    href="tel:+1234567890"
+                    href="tel:+918700461925"
                     className="text-white text-sm hover:text-orange-400 transition-colors"
                   >
-                    +1 (234) 567-890
+                    +91 87004 61925
                   </a>
                 </div>
               </li>
@@ -194,10 +200,10 @@ export default function Footer() {
                 <div>
                   <p className="text-sm text-slate-400 mb-1">Email</p>
                   <a
-                    href="mailto:hello@travelblisss.com"
+                    href="mailto:info@travelblisss.com"
                     className="text-white text-sm hover:text-orange-400 transition-colors"
                   >
-                    hello@travelblisss.com
+                    info@travelblisss.com
                   </a>
                 </div>
               </li>
