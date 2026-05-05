@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Star, Phone, ChevronRight } from "lucide-react";
+import { Star } from "lucide-react";
 
 export default function PackageCard({ package: pkg }) {
   return (
@@ -78,22 +78,18 @@ export default function PackageCard({ package: pkg }) {
               SAVE INR {pkg.savings || "7,195"}
             </span>
           </div>
-          <div className="flex items-baseline gap-1">
-            <span className="text-xl font-semibold text-gray-900 font-outfit">
-              INR {pkg.price.toLocaleString()}
-            </span>
-            <span className="text-gray-500 text-[12px]">/Adult</span>
-          </div>
-        </div>
+          <div className="flex justify-between gap-2">
+            <div className="flex items-baseline gap-1">
+              <span className="text-xl font-semibold text-gray-900 font-outfit">
+                INR {pkg.price.toLocaleString()}
+              </span>
+              <span className="text-gray-500 text-[12px]">/Adult</span>
+            </div>
 
-        {/* Buttons */}
-        <div className="flex gap-2">
-          <button className="flex-shrink-0 w-12 h-12 flex items-center justify-center border-2 border-orange-100 rounded-xl text-orange-600 hover:bg-orange-50 transition-colors">
-            <Phone className="w-5 h-5 fill-current" />
-          </button>
-          <button className="flex-1 bg-[#ff7000] hover:bg-[#e66500] text-white font-bold text-sm rounded-xl transition-colors shadow-lg shadow-orange-100">
-            Request Callback
-          </button>
+            <button className="px-2 py-2 bg-[#ff7000] hover:bg-[#e66500] text-white font-bold text-sm rounded-xl transition-colors shadow-lg shadow-orange-100">
+              View Details
+            </button>
+          </div>
         </div>
       </div>
     </div>
