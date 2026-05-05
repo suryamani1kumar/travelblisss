@@ -11,22 +11,16 @@ import {
   Clock,
   Hotel,
   Utensils,
-  Compass,
-  Car,
   ChevronRight,
   ChevronDown,
   ChevronUp,
   Check,
   X,
   MapPin,
-  Users,
-  Shield,
   Headphones,
   Award,
   Calendar,
   ArrowRight,
-  Share2,
-  Heart,
 } from "lucide-react";
 import PackageCard from "@/components/PackageCard";
 
@@ -36,7 +30,6 @@ export default function PackageDetails({ params }) {
 
   const [activeImage, setActiveImage] = useState(0);
   const [openDay, setOpenDay] = useState(1);
-  const [isWishlisted, setIsWishlisted] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -107,26 +100,24 @@ export default function PackageDetails({ params }) {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
         {/* ── Title Row ── */}
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
           <div className="flex-1">
-            <div className="flex items-center gap-2 mb-2 flex-wrap">
-              <span className="bg-orange-50 text-orange-600 text-xs font-semibold px-3 py-1 rounded-full border border-orange-100">
-                {pkg.theme}
-              </span>
-              <span className="bg-gray-50 text-gray-600 text-xs font-medium px-3 py-1 rounded-full border border-gray-100 flex items-center gap-1">
-                <MapPin className="w-3 h-3" /> {pkg.country}
-              </span>
-              <span className="bg-gray-50 text-gray-600 text-xs font-medium px-3 py-1 rounded-full border border-gray-100 flex items-center gap-1">
-                <Clock className="w-3 h-3" /> {pkg.duration}
-              </span>
-            </div>
             <h1 className="text-xl sm:text-2xl font-semibold text-gray-900 font-outfit leading-tight mb-3">
               {pkg.name}
             </h1>
             <div className="flex items-center gap-4 flex-wrap">
               <div className="flex items-center gap-1.5">
+                <span className="bg-orange-50 text-orange-600 text-xs font-semibold px-3 py-1 rounded-full border border-orange-100">
+                  {pkg.theme}
+                </span>
+                <span className="bg-gray-50 text-gray-600 text-xs font-medium px-3 py-1 rounded-full border border-gray-100 flex items-center gap-1">
+                  <MapPin className="w-3 h-3" /> {pkg.country}
+                </span>
+                <span className="bg-gray-50 text-gray-600 text-xs font-medium px-3 py-1 rounded-full border border-gray-100 flex items-center gap-1">
+                  <Clock className="w-3 h-3" /> {pkg.duration}
+                </span>
                 {[1, 2, 3, 4, 5].map((s) => (
                   <Star
                     key={s}
@@ -490,10 +481,12 @@ export default function PackageDetails({ params }) {
                     </button>
                   </form>
                 )}
-                <button className="w-full py-2.5 border-2 border-orange-100 hover:border-orange-300 text-orange-600 font-semibold text-sm rounded-xl transition-all flex items-center justify-center gap-2">
-                  <Phone className="w-4 h-4 fill-current" />
-                  Request Callback
-                </button>
+                <Link href="tel:+918700461925">
+                  <button className="w-full py-2.5 border-2 border-orange-100 hover:border-orange-300 text-orange-600 font-semibold text-sm rounded-xl transition-all flex items-center justify-center gap-2">
+                    <Phone className="w-4 h-4 fill-current" />
+                    Call at +91 87004 61925
+                  </button>
+                </Link>
               </div>
 
               {/* Trust Badges */}

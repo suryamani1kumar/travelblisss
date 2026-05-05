@@ -117,11 +117,8 @@ const PackageListCard = ({ pkg }) => {
           </div>
 
           <div className="flex gap-2 w-full sm:w-auto">
-            <button className="w-10 h-10 flex items-center justify-center border-2 border-orange-100 rounded-xl text-orange-600 hover:bg-orange-50 transition-colors">
-              <Phone className="w-5 h-5 fill-current" />
-            </button>
-            <button className="flex-1 sm:px-6 bg-orange-600 hover:bg-orange-700 text-white font-semibold text-sm rounded-xl transition-colors shadow-lg shadow-orange-100 font-outfit">
-              Request Callback
+            <button className="cursor-pointer flex-1 sm:px-6 py-2 bg-orange-500 hover:bg-orange-700 text-white font-semibold text-sm rounded-xl transition-colors shadow-lg shadow-orange-100 font-outfit">
+              View Details
             </button>
           </div>
         </div>
@@ -275,7 +272,11 @@ export default function HolidayPackages() {
             {filteredPackages.length > 0 ? (
               <div className="flex flex-col">
                 {filteredPackages.map((pkg) => (
-                  <Link key={pkg.id} href={`/holiday-packages/${pkg.id}`} className="block">
+                  <Link
+                    key={pkg.id}
+                    href={`/holiday-packages/${pkg.id}`}
+                    className="block"
+                  >
                     <PackageListCard pkg={pkg} />
                   </Link>
                 ))}

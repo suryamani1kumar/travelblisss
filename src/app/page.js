@@ -322,7 +322,9 @@ export default function Home() {
         <div className="relative">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 transition-all duration-500 ease-in-out">
             {featuredPackages.slice(pkgStart, pkgStart + 3).map((pkg) => (
-              <PackageCard key={pkg.id} package={pkg} />
+              <Link key={pkg.id} href={`/holiday-packages/${pkg.id}`}>
+                <PackageCard package={pkg} />
+              </Link>
             ))}
           </div>
         </div>
